@@ -1,0 +1,14 @@
+const express = require('express');
+const fs = require('fs');
+const app = express();
+
+app.use(express.json());
+
+app.post('/log', (req, res) => {
+  const { ip, time } = req.body;
+  const log = `IP: ${ip} | Time: ${time}\n`;
+  fs.appendFileSync('ip_log.txt', log);
+  res.sendStatus(200);
+});
+
+app.listen(3000, () => console.log('IP logger backend running on port 3000'));

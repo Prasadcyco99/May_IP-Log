@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>IP Logger</title>
+</head>
+<body>
+  <h1>Welcome</h1>
+  <script>
+    fetch('https://api.ipify.org?format=json')
+      .then(res => res.json())
+      .then(data => {
+        fetch('https://your-logging-api.onrender.com/log', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ ip: data.ip, time: new Date().toISOString() })
+        });
+      });
+  </script>
+</body>
+</html>
